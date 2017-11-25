@@ -14,11 +14,11 @@ client.on("message", (message) => {
 	if (message.cleanContent.indexOf("omae wa") >= 0){
 		message.channel.send("Nani?!");
 	}
-	if (message.cleanContent.indexOf(":rainboawoo:") >= 0){
-		if(message.author.bot === true){}else{
+		if (message.cleanContent.indexOf(":rainboawoo:") >= 0){
+			if(message.author.bot === true){}else{
 			const emoji = client.emojis.find("name", "rainboawoo");
 			message.channel.send(emoji.toString());
-		}
+			}
 	}
 	
 //bot commands
