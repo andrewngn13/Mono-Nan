@@ -5,7 +5,7 @@ Node JS is required!
 Install it [here](https://nodejs.org/en/).
 *note*
 
-``npm install xmlhttprequest``
+``npm install request``
 
 maybe
 
