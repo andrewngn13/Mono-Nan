@@ -1,46 +1,39 @@
-var Discord = require('discord.io');
-var logger = require('winston');
-var auth = require('./auth.json');
-var ffmpeg = require('ffmpeg');
-// Configure logger settings
-logger.remove(logger.transports.Console);
-logger.add(logger.transports.Console, {
-    colorize: true
+const Discord = require("discord.js");
+const client = new Discord.Client();
+const auth = require('./auth.json');
+const prefix = new String("?");
+
+client.on("ready", () => {
+  console.log("Connected");
+  console.log("Logged in as: ");
+  console.log(client.user.username + ' - (' + client.user.id + ')'); 
 });
-logger.level = 'debug';
-// Initialize Discord Bot
-var bot = new Discord.Client({
-   token: auth.token,
-   autorun: true
+
+client.on("message", (message) => {
+	if (message.content.startsWith(prefix)){
+	switch(message.content.substring(1)){
+		case "ping":
+			message.channel.send("Pong!");
+		break;
+		case "test":
+			message.channel.send({embed: {
+			color: 3447003,
+			author: {
+				name: client.user.username,
+				icon_url: client.user.avatarURL
+			},
+			title: "Testing myaa.",
+			url: "http://google.com",
+			description: "Rich Embed Test!",
+			timestamp: new Date(),
+			footer: {
+				icon_url: client.user.avatarURL,
+				text: "boo"
+			}
+			}});
+		break;
+	}}
 });
-bot.on('ready', function (evt) {
-    logger.info('Connected');
-    logger.info('Logged in as: ');
-    logger.info(bot.username + ' - (' + bot.id + ')');
-});
-bot.on('message', function (user, userID, channelID, message, evt) {
-    // Our bot needs to know if it will execute a command
-    // It will listen for messages that will start with `!`
-    if (message.substring(0, 1) == '?') {
-        var args = message.substring(1).split(' ');
-        var cmd = args[0];
-       
-        args = args.splice(1);
-        switch(cmd) {
-            case 'help':
-                bot.sendMessage({
-                    to: channelID,
-                    message: '???'
-                });
-            break;
-            // !ping
-            case 'ping':
-                bot.sendMessage({
-                    to: channelID,
-                    message: 'Pong!'
-                });
-            break;
-            // Just add any case commands if you want to..
-         }
-     }
-});
+
+client.login(auth.token);
+
