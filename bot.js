@@ -18,7 +18,23 @@ client.on("message", (message) => {
 //bot commands
 	if (message.content.startsWith(prefix)){
 	switch(message.content.substring(1)){
-		
+		case "help":
+			message.channel.send({embed: {
+			color: 3447003,
+			title: "**__Help Commands__**",
+			fields: [{
+				name: "?help",
+				value: "List of commands"
+				},{
+				name: "?ping",
+				value: "Pong!"
+				},{
+				name: "?test",
+				value: "Test a rich embed."
+				}],
+			timestamp: new Date()
+			}})
+		break;
 		case "ping":
 			message.channel.send("Pong!");
 		break;
