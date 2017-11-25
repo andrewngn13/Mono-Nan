@@ -11,7 +11,7 @@ client.on("ready", () => {
 
 client.on("message", (message) => {
 //meme retorts
-	if (message.cleancontent.indexOf("Omae wa") >= 0){
+	if (message.cleanContent.indexOf("Omae wa") >= 0){
 		message.channel.send("Nani?!");
 	}
 	
