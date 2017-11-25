@@ -11,13 +11,14 @@ client.on("ready", () => {
 
 client.on("message", (message) => {
 //meme retorts
-	if (message.cleanContent.indexOf("Omae wa") >= 0){
+	if (message.cleanContent.indexOf("omae wa") >= 0){
 		message.channel.send("Nani?!");
 	}
 	
 //bot commands
 	if (message.content.startsWith(prefix)){
 	switch(message.content.substring(1)){
+		
 		case "ping":
 			message.channel.send("Pong!");
 		break;
