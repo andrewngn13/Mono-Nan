@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 var request = require('request');
 const client = new Discord.Client();
+const fs = require("fs");
 const auth = require('./auth.json');
 const prefix = new String("?");
 
@@ -12,18 +13,23 @@ client.on("ready", () => {
 
 client.on("message", (message) => {
 //meme retorts
-	var lwCaseMsg = message.cleanContent.toLowerCase();
-	if (lwCaseMsg.indexOf("omae wa") >= 0){
-		message.channel.send("Nani?!");
-	}
+//*do not encase in function because of constant calls
 	if(message.author.bot === true){}
 	else{
-		if (lwCaseMsg.indexOf(":rainboawoo:") >= 0){
-			const emoji = client.emojis.find("name", "rainboawoo");
-			message.channel.send(emoji.toString());
+		var lwCaseMsg = message.cleanContent.toLowerCase();
+		var keys = ["omae wa", ":rainboawoo:"];
+		for (i = 0; i < keys.length; i++) {
+			if(lwCaseMsg.indexOf(keys[i]) >= 0){
+			switch(keys[i]){
+				case "omae wa":
+					message.channel.send("Nani?!");
+				break;
+				case ":rainboawoo:":
+					message.channel.send(client.emojis.find("name", "rainboawoo").toString());
+				break;
+			}
+			}
 		}
-	}
-	
 //bot commands
 	if (message.content.startsWith(prefix)){
 	var msgArr = message.content.substring(1).split(" ");
@@ -45,6 +51,19 @@ client.on("message", (message) => {
 			timestamp: new Date()
 			}})
 		break;
+		case "test":
+			message.channel.send("", {file: auth.gpuMeme});
+			var myJson = {
+				key: "myvalue",
+				hp: "10"
+			};
+			try{
+				fs.writeFile('file.json', JSON.stringify(myJson), (err) => {
+				if (err) throw err;
+					console.log('The file has been saved!');
+				});
+			}catch(e){console.error(e, e.stack);}
+		break;
 		case "ping":
 			message.channel.send("Pong!");
 		break;
@@ -55,6 +74,7 @@ client.on("message", (message) => {
 		break;
 		default:
 	}}
+	}
 });
 
 client.login(auth.token);
@@ -100,3 +120,11 @@ function wpnEmbed(page, message){
 			console.error(e, e.stack);
 		}	
 }
+//Let's go on an adventure!
+function adventure(){
+	
+}
+
+
+
+
