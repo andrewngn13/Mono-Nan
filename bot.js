@@ -38,6 +38,9 @@ client.on("message", (message) => {
 				},{
 				name: "?ping",
 				value: "Pong!"
+				},{
+				name: "?weapon",
+				value: "Takes in a pso2arks weapon name argument and produces an embed. In progress."
 				}],
 			timestamp: new Date()
 			}})
@@ -46,10 +49,9 @@ client.on("message", (message) => {
 			message.channel.send("Pong!");
 		break;
 		case "weapon":
-			if(msgArr.length < 2)
-				message.channel.send("Weapon not found.")
-			else
-				wpnEmbed(msgArr[1]);
+			if(msgArr.length >= 2){
+				wpnEmbed(msgArr[1],message);
+			}else{message.channel.send("Please type a weapon name after the command!");}
 		break;
 		default:
 	}}
@@ -57,19 +59,18 @@ client.on("message", (message) => {
 
 client.login(auth.token);
 
-//####Functions#####
-//##################
-//takes in pso2arks page name and outputs a weapon embed
-function wpnEmbed(page){
-	try{
-		var wpnPlate;
-		request(auth.pso2URL + page,
-		function (error, response, body) {
-			//console.log('error:', error); // Print the error if one occurred
-			//console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-			//console.log('body:', body); // Print the HTML for the Google homepage.
-			//wpnPlate = body.toString();
-			if(body.indexOf("{{Weapon") >= 0){
+//##Functions##
+//#############
+//takes page name and message event to send weapon embed
+function wpnEmbed(page, message){
+		try{
+			var wpnPlate;
+			request(auth.pso2URL + page,
+			function (error, response, body) {
+				//console.log('error:', error); // Print the error if one occurred
+				//console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+				//console.log('body:', body); // Print the HTML for the Google homepage.
+				if(body.indexOf("{{Weapon") >= 0){
 				wpnPlate = (body.toString()).substring(body.indexOf("{{Weapon"), body.indexOf("}}")+2);
 				console.log(wpnPlate);
 				var pgArr = wpnPlate.toString().split("|");
@@ -91,11 +92,11 @@ function wpnEmbed(page){
 				value: "Test a rich embed."
 				}],
 			}});
-			}
-			else{message.channel.send("Weapon not found!");}
+				}
+				else{message.channel.send("No weapon found..");}
 			});
 		}
 		catch (e){
 			console.error(e, e.stack);
-		}
+		}	
 }
