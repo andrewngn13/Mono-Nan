@@ -16,11 +16,12 @@ client.on("message", (message) => {
 	if (lwCaseMsg.indexOf("omae wa") >= 0){
 		message.channel.send("Nani?!");
 	}
+	if(message.author.bot === true){}
+	else{
 		if (lwCaseMsg.indexOf(":rainboawoo:") >= 0){
-			if(message.author.bot === true){}else{
 			const emoji = client.emojis.find("name", "rainboawoo");
 			message.channel.send(emoji.toString());
-			}
+		}
 	}
 	
 //bot commands
@@ -50,10 +51,6 @@ client.on("message", (message) => {
 		case "test":
 			message.channel.send({embed: {
 			color: 3447003,
-			author: {
-				name: client.user.username,
-				icon_url: client.user.avatarURL
-			},
 			title: "Testing myaa.",
 			url: "http://google.com",
 			description: "Rich Embed Test!",
