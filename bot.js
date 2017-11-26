@@ -46,19 +46,35 @@ client.on("message", (message) => {
 			message.channel.send("Pong!");
 		break;
 		case "weapon":
-		try{
-			var wpnPlate;
-			request(auth.pso2URL + msgArr[1],
-			function (error, response, body) {
-				//console.log('error:', error); // Print the error if one occurred
-				//console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-				//console.log('body:', body); // Print the HTML for the Google homepage.
-				//wpnPlate = body.toString();
+			if(msgArr.length < 2)
+				message.channel.send("Weapon not found.")
+			else
+				wpnEmbed(msgArr[1]);
+		break;
+		default:
+	}}
+});
+
+client.login(auth.token);
+
+//####Functions#####
+//##################
+//takes in pso2arks page name and outputs a weapon embed
+function wpnEmbed(page){
+	try{
+		var wpnPlate;
+		request(auth.pso2URL + page,
+		function (error, response, body) {
+			//console.log('error:', error); // Print the error if one occurred
+			//console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+			//console.log('body:', body); // Print the HTML for the Google homepage.
+			//wpnPlate = body.toString();
+			if(body.indexOf("{{Weapon") >= 0){
 				wpnPlate = (body.toString()).substring(body.indexOf("{{Weapon"), body.indexOf("}}")+2);
 				console.log(wpnPlate);
 				var pgArr = wpnPlate.toString().split("|");
 				console.log("\n\n" + pgArr);
-							message.channel.send("Weapon! ");
+			message.channel.send("Weapon! ");
 			message.channel.send({embed: {
 			color: 3447003,
 			title: "Testing myaa.",
@@ -75,15 +91,11 @@ client.on("message", (message) => {
 				value: "Test a rich embed."
 				}],
 			}});
+			}
+			else{message.channel.send("Weapon not found!");}
 			});
 		}
 		catch (e){
 			console.error(e, e.stack);
 		}
-		break;
-		default:
-	}}
-});
-
-client.login(auth.token);
-
+}
