@@ -1,2 +1,3 @@
-npm install discord.js
-npm install request
+call npm install discord.js
+call npm install request
+pause
