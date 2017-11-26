@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
-var request = require('request');
+const advent = require("./advent.js");
+const request = require('request');
 const client = new Discord.Client();
 const fs = require("fs");
 const auth = require('./auth.json');
@@ -35,24 +36,12 @@ client.on("message", (message) => {
 	var msgArr = message.content.substring(1).split(" ");
 	switch(msgArr[0]){//message.content.substring(1)
 		case "help":
-			message.channel.send({embed: {
-			color: 3447003,
-			title: "**__Help Commands__**",
-			fields: [{
-				name: "?help",
-				value: "List of commands"
-				},{
-				name: "?ping",
-				value: "Pong!"
-				},{
-				name: "?weapon",
-				value: "Takes in a pso2arks weapon name argument and produces an embed. In progress."
-				}],
-			timestamp: new Date()
-			}})
+			help(message);
 		break;
+		case "adventure":
+			//advent.adventure();
 		case "test":
-			message.channel.send("", {file: auth.gpuMeme});
+			message.channel.send({file: auth.gpuMeme});
 			var myJson = {
 				key: "myvalue",
 				hp: "10"
@@ -82,6 +71,23 @@ client.login(auth.token);
 //##Functions##
 //#############
 //takes page name and message event to send weapon embed
+function help(message){
+	message.channel.send({embed: {
+		color: 3447003,
+		title: "**__Help Commands__**",
+		fields: [{
+			name: "?help",
+			value: "List of commands"
+			},{
+			name: "?ping",
+			value: "Pong!"
+			},{
+			name: "?weapon",
+			value: "Takes in a pso2arks weapon name argument and produces an embed. In progress."
+			}],
+		timestamp: new Date()
+	}});
+}
 function wpnEmbed(page, message){
 		try{
 			var wpnPlate;
@@ -120,10 +126,7 @@ function wpnEmbed(page, message){
 			console.error(e, e.stack);
 		}	
 }
-//Let's go on an adventure!
-function adventure(){
-	
-}
+
 
 
 
