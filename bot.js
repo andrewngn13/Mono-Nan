@@ -38,9 +38,6 @@ client.on("message", (message) => {
 				},{
 				name: "?ping",
 				value: "Pong!"
-				},{
-				name: "?test",
-				value: "Test a rich embed."
 				}],
 			timestamp: new Date()
 			}})
@@ -48,23 +45,10 @@ client.on("message", (message) => {
 		case "ping":
 			message.channel.send("Pong!");
 		break;
-		case "test":
-			message.channel.send({embed: {
-			color: 3447003,
-			title: "Testing myaa.",
-			url: "http://google.com",
-			description: "Rich Embed Test!",
-			timestamp: new Date(),
-			footer: {
-				icon_url: client.user.avatarURL,
-				text: "boo"
-			}
-			}});
-		break;
 		case "weapon":
 		try{
 			var wpnPlate;
-			request("https://pso2.arks-visiphone.com/api.php?action=query&prop=revisions&rvprop=content&format=jsonfm&titles=" + msgArr[1],
+			request(auth.pso2URL + msgArr[1],
 			function (error, response, body) {
 				//console.log('error:', error); // Print the error if one occurred
 				//console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
