@@ -31,7 +31,30 @@ module.exports = {
 		}
 /*
 		while(true){
-			message.send("loopy");
+			var af = 30; 
+			message.channel.send({embed: {
+						color: 3447003,
+						title: "Event Timer.",
+						description: ("Time until next event: "+af),
+						timestamp: new Date(),
+					}})
+				.then(function (message){
+
+					a = setInterval(function(){ 
+					message.edit({embed: {
+						color: 3447003,
+						title: "Event Timer.",
+						description: ("Time until next event: "+af),
+						timestamp: new Date(),
+					}});
+					af = af-2;
+					if(af < 0){ 
+						clearInterval(a);
+					} 
+					}, 2000);
+			}).catch(function() {
+				console.log('Try again.');
+			});
 		}*/
 	}
 };

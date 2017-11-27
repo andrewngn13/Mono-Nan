@@ -86,11 +86,11 @@ client.on("message", (message) => {
 						description: ("Time until next event: "+af),
 						timestamp: new Date(),
 					}});
-					af = af-5;
-					if(af <= 0){ 
+					af = af-2;
+					if(af < 0){ 
 						clearInterval(a);
 					} 
-					}, 5000);
+					}, 2000);
 			}).catch(function() {
 				console.log('Try again.');
 			});
