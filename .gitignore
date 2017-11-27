@@ -1,2 +1,4 @@
 #config files
 auth.json
+maint_bot.bat
+maint.js
