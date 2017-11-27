@@ -18,15 +18,26 @@ client.on("message", (message) => {
 	if(message.author.bot === true){}
 	else{
 		var lwCaseMsg = message.cleanContent.toLowerCase();
-		var keys = ["omae wa", ":rainboawoo:"];
+		var keys = ["omae wa", ":rainboawoo:","intel","amd","gtx","nvidia","radeon"];
+		var gpuKey = false;
 		for (i = 0; i < keys.length; i++) {
 			if(lwCaseMsg.indexOf(keys[i]) >= 0){
+			if((keys[i] == "intel" ||keys[i] == "amd" ||keys[i] == "gtx" ||keys[i] == "nvidia" ||keys[i] == "radeon") && gpuKey == false){
+				message.channel.send({file: auth.gpuMeme});
+				gpuKey = true;
+			}
 			switch(keys[i]){
 				case "omae wa":
 					message.channel.send("Nani?!");
 				break;
 				case ":rainboawoo:":
+				try{
 					message.channel.send(client.emojis.find("name", "rainboawoo").toString());
+				}
+				catch(e){
+					console.log(e);
+					message.channel.send({file:"https://cdn.discordapp.com/emojis/383944206064025610.png"});
+				}
 				break;
 			}
 			}
@@ -39,9 +50,15 @@ client.on("message", (message) => {
 			help(message);
 		break;
 		case "adventure":
-			//advent.adventure();
+			//message.guild.channels.find("name", "adventure").send("Adventure!");
+			if(msgArr.length >= 2){
+				advent.adventure(message.guild.channels.find("name", "adventure"),msgArr[1]);
+			}else{
+				message.channel.send("Need an adventure command!");
+			}
+		break;
 		case "test":
-			message.channel.send({file: auth.gpuMeme});
+		/*
 			var myJson = {
 				key: "myvalue",
 				hp: "10"
@@ -52,6 +69,32 @@ client.on("message", (message) => {
 					console.log('The file has been saved!');
 				});
 			}catch(e){console.error(e, e.stack);}
+			*/
+			var af = 40; 
+			message.channel.send({embed: {
+						color: 3447003,
+						title: "Event Timer.",
+						description: ("Time until next event: "+af),
+						timestamp: new Date(),
+					}})
+				.then(function (message){
+
+					a = setInterval(function(){ 
+					message.edit({embed: {
+						color: 3447003,
+						title: "Event Timer.",
+						description: ("Time until next event: "+af),
+						timestamp: new Date(),
+					}});
+					af = af-5;
+					if(af <= 0){ 
+						clearInterval(a);
+					} 
+					}, 5000);
+			}).catch(function() {
+				console.log('Try again.');
+			});
+			
 		break;
 		case "ping":
 			message.channel.send("Pong!");
