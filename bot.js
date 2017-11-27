@@ -64,37 +64,12 @@ client.on("message", (message) => {
 				hp: "10"
 			};
 			try{
-				fs.writeFile('file.json', JSON.stringify(myJson), (err) => {
+				fs.writeFile('var.json', JSON.stringify(myJson), (err) => {
 				if (err) throw err;
 					console.log('The file has been saved!');
 				});
 			}catch(e){console.error(e, e.stack);}
 			*/
-			var af = 40; 
-			message.channel.send({embed: {
-						color: 3447003,
-						title: "Event Timer.",
-						description: ("Time until next event: "+af),
-						timestamp: new Date(),
-					}})
-				.then(function (message){
-
-					a = setInterval(function(){ 
-					message.edit({embed: {
-						color: 3447003,
-						title: "Event Timer.",
-						description: ("Time until next event: "+af),
-						timestamp: new Date(),
-					}});
-					af = af-2;
-					if(af < 0){ 
-						clearInterval(a);
-					} 
-					}, 2000);
-			}).catch(function() {
-				console.log('Try again.');
-			});
-			
 		break;
 		case "ping":
 			message.channel.send("Pong!");

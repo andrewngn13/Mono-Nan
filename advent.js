@@ -27,12 +27,14 @@ module.exports = {
 			case "end":
 				message.send("The adventure has ended..");
 				journey = false;
-				break;
+			break;
+			//case "test":
+			//break;
 		}
-/*
-		while(true){
-			var af = 30; 
-			message.channel.send({embed: {
+
+		//while{
+			var af = 40; 
+			message.send({embed: {
 						color: 3447003,
 						title: "Event Timer.",
 						description: ("Time until next event: "+af),
@@ -55,6 +57,6 @@ module.exports = {
 			}).catch(function() {
 				console.log('Try again.');
 			});
-		}*/
+		//}
 	}
 };
