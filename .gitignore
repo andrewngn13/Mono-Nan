@@ -1,5 +1,8 @@
 #config files
 bin/auth.json
+bin/maint.js
 bin/maint_bot.bat
 bin/maint.js
+bin/run_once.bat
+bin/start_bot.bat
 .travis.yml
