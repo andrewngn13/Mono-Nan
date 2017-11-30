@@ -32,13 +32,13 @@ client.on("message", (message) => {
 					message.channel.send("Nani?!");
 				break;
 				case ":rainboawoo:":
-					/*try{
+					try{
 						message.channel.send(client.emojis.find("name", "rainboawoo").toString());
 					
 					catch(e){
 						console.log(e);
 						message.channel.send({file:"https://cdn.discordapp.com/emojis/383944206064025610.png"});
-					}*/
+					}
 				break;
 			}
 			}
