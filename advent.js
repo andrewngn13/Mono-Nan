@@ -20,7 +20,7 @@ module.exports = {
 				}],
 			}});
 			}catch(e){console.log(e);}
-				//auth.journey = true;
+
 			break;
 			case "pause":
 				message.send("It's time to take a break.!");

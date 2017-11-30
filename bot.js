@@ -1,9 +1,10 @@
 const Discord = require("discord.js");
 const advent = require("./advent.js");
-const request = require('request');
-const client = new Discord.Client();
-const fs = require("fs");
+const misc = require('./misc.json');
 const auth = require('./auth.json');
+const request = require('request');
+const fs = require("fs");
+const client = new Discord.Client();
 const prefix = new String("?");
 
 client.on("ready", () => {
@@ -23,7 +24,7 @@ client.on("message", (message) => {
 		for (i = 0; i < keys.length; i++) {
 			if(lwCaseMsg.indexOf(keys[i]) >= 0){
 			if((keys[i] == "intel" ||keys[i] == "amd" ||keys[i] == "gtx" ||keys[i] == "nvidia" ||keys[i] == "radeon") && gpuKey == false){
-				message.channel.send({file: auth.gpuMeme});
+				message.channel.send({file: misc.gpuMeme});
 				gpuKey = true;
 			}
 			switch(keys[i]){
@@ -31,13 +32,13 @@ client.on("message", (message) => {
 					message.channel.send("Nani?!");
 				break;
 				case ":rainboawoo:":
-				try{
-					message.channel.send(client.emojis.find("name", "rainboawoo").toString());
-				}
-				catch(e){
-					console.log(e);
-					message.channel.send({file:"https://cdn.discordapp.com/emojis/383944206064025610.png"});
-				}
+					/*try{
+						message.channel.send(client.emojis.find("name", "rainboawoo").toString());
+					
+					catch(e){
+						console.log(e);
+						message.channel.send({file:"https://cdn.discordapp.com/emojis/383944206064025610.png"});
+					}*/
 				break;
 			}
 			}
@@ -97,6 +98,9 @@ function help(message){
 			name: "?help",
 			value: "List of commands"
 			},{
+			name: "?adventure",
+			value: "An exciting game! In progress."
+			},{
 			name: "?ping",
 			value: "Pong!"
 			},{
@@ -107,42 +111,42 @@ function help(message){
 	}});
 }
 function wpnEmbed(page, message){
-		try{
-			var wpnPlate;
-			request(auth.pso2URL + page,
-			function (error, response, body) {
-				//console.log('error:', error); // Print the error if one occurred
-				//console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-				//console.log('body:', body); // Print the HTML for the Google homepage.
-				if(body.indexOf("{{Weapon") >= 0){
+	try{
+		var wpnPlate;
+		request(misc.pso2URL + page, function (error, response, body) {
+			//console.log('error:', error); // Print the error if one occurred
+			//console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+			//console.log('body:', body); // Print the HTML for the Google homepage.
+			if(body.indexOf("{{Weapon") >= 0){
 				wpnPlate = (body.toString()).substring(body.indexOf("{{Weapon"), body.indexOf("}}")+2);
 				console.log(wpnPlate);
 				var pgArr = wpnPlate.toString().split("|");
 				console.log("\n\n" + pgArr);
-			message.channel.send("Weapon! ");
-			message.channel.send({embed: {
-			color: 3447003,
-			title: "Testing myaa.",
-			description: "Weapon Test!",
-			timestamp: new Date(),
-			fields: [{
-				name: "JP Name",
-				value: pgArr[1]
-				},{
-				name: "?ping",
-				value: "Pong!"
-				},{
-				name: "?test",
-				value: "Test a rich embed."
-				}],
-			}});
-				}
-				else{message.channel.send("No weapon found..");}
-			});
-		}
-		catch (e){
-			console.error(e, e.stack);
-		}	
+				message.channel.send("Weapon! ");
+				message.channel.send({embed: {
+					color: 3447003,
+					title: "Testing myaa.",
+					description: "Weapon Test!",
+					timestamp: new Date(),
+					fields: [{
+						name: "JP Name",
+						value: pgArr[1]
+						},{
+						name: "?ping",
+						value: "Pong!"
+						},{
+						name: "?test",
+						value: "Test a rich embed."
+					}],
+				}});
+			}else{
+				message.channel.send("No weapon found..");
+			}
+		});
+	}
+	catch (e){
+		console.error(e, e.stack);
+	}	
 }
 
 
